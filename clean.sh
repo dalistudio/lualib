@@ -10,3 +10,5 @@ rm lsqlite3_fsl09x/*.so
 rm luasocket-3.0-rc1/*.o
 rm luasocket-3.0-rc1/*.so
 
+rm -r release
+
