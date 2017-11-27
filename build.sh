@@ -34,6 +34,7 @@ cp ../lua-5.3.4/src/*.dll .
 
 cp ../lsqlite3_fsl09x/*.so .
 
+cp ../luasocket-3.0-rc1/src/*.lua .
 cp ../luasocket-3.0-rc1/*.so .
 cd ..
 
