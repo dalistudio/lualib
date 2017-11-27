@@ -1,0 +1,20 @@
+
+编译 socket.dll 库，需要修改 luaL_checkint 为 luaL_checkinteger 因为lua5.3不支持 luaL_checkint
+还需要暂时屏蔽，因为 mingw 找不到 inet_pton 函数
+/*
+// wangdali 屏蔽
+    if (!inet_pton(AF_INET6, lua_tostring(L, -1), &val.ipv6mr_multiaddr)) 
+        luaL_argerror(L, 3, "invalid 'multiaddr' ip address");
+*/
+
+
+i686-w64-mingw32-gcc -fPIC -I../lua-5.3.4/src -c src/auxiliar.c src/buffer.c src/except.c src/inet.c src/io.c src/luasocket.c src/options.c src/select.c src/tcp.c src/timeout.c src/udp.c src/wsocket.c
+
+i686-w64-mingw32-gcc -shared -o socket.dll -L../lua-5.3.4/src ../lua-5.3.4/src/lua53.dll *.o -lws2_32 -lpthread -lm -static-libgcc -static-libstdc++
+
+//////////////////////////////
+
+编译 mime.dll 库，需要修改 luaL_checkint 为 luaL_checkinteger 因为lua5.3不支持 luaL_checkint
+i686-w64-mingw32-gcc -fPIC -I../lua-5.3.4/src -c src/mime.c
+i686-w64-mingw32-gcc -shared -o mime.dll -L../lua-5.3.4/src ../lua-5.3.4/src/lua53.dll mime.o -lws2_32 -lpthread -lm -static-libgcc -static-libstdc++
+

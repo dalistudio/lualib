@@ -1,0 +1,8 @@
+gcc -O2 -fPIC -I../lua-5.3.4/src -c lsqlite3.c -o lsqlite3.o 
+gcc -O2 -fPIC -I../lua-5.3.4/src -c sqlite3.c -o sqlite3.o 
+gcc -shared -o lsqlite3.so -L../lua5.3.4/src lsqlite3.o sqlite3.o -lpthread -lm -ldl
+
+使用 mingw 编译 lsqlite3 库
+i686-w64-mingw32-gcc -O2 -fPIC -I../lua-5.3.4/src -c lsqlite3.c -o lsqlite3.o 
+i686-w64-mingw32-gcc -fPIC -I../lua-5.3.4/src -c sqlite3.c -o sqlite3.o 
+i686-w64-mingw32-gcc -shared -o lsqlite3.dll -L../lua-5.3.4/src ../lua-5.3.4/src/lua53.dll lsqlite3.o sqlite3.o -lpthread -lm -static-libgcc -static-libstdc++

@@ -1,0 +1,16 @@
+这个项目包括两个lua库：
+1、lsqlite3，即sqlite3的lua库
+    因为源项目需要使用luarocks来编译和安装。这里为了在windows下使用，直接采用mingw编译C文件，并链接成动态连接库。并静态连接 gcc 的c标准库。
+
+2、luasocket，即socket的lua库
+    这个项目原来只可用于lua5.1和lua5.2，但是这里需要使用最新的lua5.3。所以需要修改一下源代码：
+    A. 因为lua5.3没有 luaL_checkint 这个函数，所以需要替换为luaL_checkinteger即可。需要修改的文件有 luasocket.c 和 mime.c 这两个文件。
+    B. 因为 mingw 没有找到 inet_pton 这个函数，所以暂时屏蔽这个函数使用。即：
+
+    if (!inet_pton(AF_INET6, lua_tostring(L, -1), &val.ipv6mr_multiaddr)) 
+        luaL_argerror(L, 3, "invalid 'multiaddr' ip address");
+
+    在需要修改这个函数。socket这个库分为C语言和lua语言写的库。
+
+
+
